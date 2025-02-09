@@ -104,31 +104,32 @@ services:
   #   volumes:
   #    - ${TPOT_DATA_PATH}/ciscoasa/log:/var/log/ciscoasa
 
-# Conpot IEC104 service : Conpot is an ICS honeypot with the goal to collect intelligence about the motives and methods of adversaries targeting industrial control systems.
-  conpot_IEC104:
-    container_name: conpot_iec104
-    restart: always
-    depends_on:
-      tpotinit:
-        condition: service_healthy
-    environment:
-     - CONPOT_CONFIG=/etc/conpot/conpot.cfg
-     - CONPOT_JSON_LOG=/var/log/conpot/conpot_IEC104.json
-     - CONPOT_LOG=/var/log/conpot/conpot_IEC104.log
-     - CONPOT_TEMPLATE=IEC104
-     - CONPOT_TMP=/tmp/conpot
-    tmpfs:
-     - /tmp/conpot:uid=2000,gid=2000
-    networks:
-     - conpot_local_IEC104
-    ports:
-     - "161:161/udp"
-     - "2404:2404"
-    image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
-    pull_policy: ${TPOT_PULL_POLICY}
-    read_only: true
-    volumes:
-     - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
+# # Conpot IEC104 service : Conpot is an ICS honeypot with the goal to collect intelligence 
+# # about the motives and methods of adversaries targeting industrial control systems.
+#   conpot_IEC104:
+#     container_name: conpot_iec104
+#     restart: always
+#     depends_on:
+#       tpotinit:
+#         condition: service_healthy
+#     environment:
+#      - CONPOT_CONFIG=/etc/conpot/conpot.cfg
+#      - CONPOT_JSON_LOG=/var/log/conpot/conpot_IEC104.json
+#      - CONPOT_LOG=/var/log/conpot/conpot_IEC104.log
+#      - CONPOT_TEMPLATE=IEC104
+#      - CONPOT_TMP=/tmp/conpot
+#     tmpfs:
+#      - /tmp/conpot:uid=2000,gid=2000
+#     networks:
+#      - conpot_local_IEC104
+#     ports:
+#      - "161:161/udp"
+#      - "2404:2404"
+#     image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
+#     pull_policy: ${TPOT_PULL_POLICY}
+#     read_only: true
+#     volumes:
+#      - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
 
 # # Conpot guardian_ast service
 #   conpot_guardian_ast:
