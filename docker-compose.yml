@@ -180,31 +180,31 @@ services:
   #   volumes:
   #    - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
 
-# Conpot kamstrup_382
-  conpot_kamstrup_382:
-    container_name: conpot_kamstrup_382
-    restart: always
-    depends_on:
-      tpotinit:
-        condition: service_healthy
-    environment:
-     - CONPOT_CONFIG=/etc/conpot/conpot.cfg
-     - CONPOT_JSON_LOG=/var/log/conpot/conpot_kamstrup_382.json
-     - CONPOT_LOG=/var/log/conpot/conpot_kamstrup_382.log
-     - CONPOT_TEMPLATE=kamstrup_382
-     - CONPOT_TMP=/tmp/conpot
-    tmpfs:
-     - /tmp/conpot:uid=2000,gid=2000
-    networks:
-     - conpot_local_kamstrup_382
-    ports:
-     - "1025:1025"
-     - "50100:50100"
-    image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
-    pull_policy: ${TPOT_PULL_POLICY}
-    read_only: true
-    volumes:
-     - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
+# Conpot kamstrup_382 https://www.kamstrup.com/product-centre/kamstrup-382
+  # conpot_kamstrup_382:
+  #   container_name: conpot_kamstrup_382
+  #   restart: always
+  #   depends_on:
+  #     tpotinit:
+  #       condition: service_healthy
+  #   environment:
+  #    - CONPOT_CONFIG=/etc/conpot/conpot.cfg
+  #    - CONPOT_JSON_LOG=/var/log/conpot/conpot_kamstrup_382.json
+  #    - CONPOT_LOG=/var/log/conpot/conpot_kamstrup_382.log
+  #    - CONPOT_TEMPLATE=kamstrup_382
+  #    - CONPOT_TMP=/tmp/conpot
+  #   tmpfs:
+  #    - /tmp/conpot:uid=2000,gid=2000
+  #   networks:
+  #    - conpot_local_kamstrup_382
+  #   ports:
+  #    - "1025:1025"
+  #    - "50100:50100"
+  #   image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
+  #   pull_policy: ${TPOT_PULL_POLICY}
+  #   read_only: true
+  #   volumes:
+  #    - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
 
 # Cowrie service
   cowrie:
@@ -230,29 +230,29 @@ services:
       - ${TPOT_DATA_PATH}/cowrie/log:/home/cowrie/cowrie/log
       - ${TPOT_DATA_PATH}/cowrie/log/tty:/home/cowrie/cowrie/log/tty
 
-# Dicompot service
+# Dicompot service A Digital Imaging and Communications in Medicine (DICOM) Honeypot
 # Get the Horos Client for testing: https://horosproject.org/
 # Get Dicom images (CC BY 3.0): https://www.cancerimagingarchive.net/collections/
 # Put images (which must be in Dicom DCM format or it will not work!) into /data/dicompot/images
-  dicompot:
-    container_name: dicompot
-    restart: always
-    depends_on:
-      tpotinit:
-        condition: service_healthy
-    networks:
-     - dicompot_local
-    ports:
-     - "104:11112"
-     - "11112:11112"
-    image: ${TPOT_REPO}/dicompot:${TPOT_VERSION}
-    pull_policy: ${TPOT_PULL_POLICY}
-    read_only: true
-    volumes:
-     - ${TPOT_DATA_PATH}/dicompot/log:/var/log/dicompot
-#     - ${TPOT_DATA_PATH}/dicompot/images:/opt/dicompot/images
+#   dicompot:
+#     container_name: dicompot
+#     restart: always
+#     depends_on:
+#       tpotinit:
+#         condition: service_healthy
+#     networks:
+#      - dicompot_local
+#     ports:
+#      - "104:11112"
+#      - "11112:11112"
+#     image: ${TPOT_REPO}/dicompot:${TPOT_VERSION}
+#     pull_policy: ${TPOT_PULL_POLICY}
+#     read_only: true
+#     volumes:
+#      - ${TPOT_DATA_PATH}/dicompot/log:/var/log/dicompot
+# #     - ${TPOT_DATA_PATH}/dicompot/images:/opt/dicompot/images
 
-# Dionaea service
+# Dionaea service Front Web to Dionaea low-interaction honeypot.
   dionaea:
     container_name: dionaea
     stdin_open: true
@@ -293,7 +293,7 @@ services:
      - ${TPOT_DATA_PATH}/dionaea/log:/opt/dionaea/var/log
      - ${TPOT_DATA_PATH}/dionaea/rtp:/opt/dionaea/var/dionaea/rtp
 
-# ElasticPot service
+# ElasticPot service for elasticsearch
   elasticpot:
     container_name: elasticpot
     restart: always
@@ -310,7 +310,10 @@ services:
     volumes:
      - ${TPOT_DATA_PATH}/elasticpot/log:/opt/elasticpot/log
 
-# H0neytr4p service
+# H0neytr4p service : deploy honeypot for protecting against web recon and exploiting
+#create trap for each vulnerability or exploit or recon technique and place it in the /traps folder and restart h0neytr4p
+#This will automatically reload the configuration and start the h0neytr4p.
+#https://github.com/pbssubhash/h0neytr4p
   h0neytr4p:
     container_name: h0neytr4p
     restart: always
@@ -329,7 +332,10 @@ services:
       - ${TPOT_DATA_PATH}/h0neytr4p/log/:/opt/h0neytr4p/log/
       - ${TPOT_DATA_PATH}/h0neytr4p/payloads/:/data/h0neytr4p/payloads/
 
-# Heralding service
+# Heralding service : Sometimes you just want a simple honeypot that collects credentials, nothing more.
+#Heralding is that honeypot! Currently the following protocols are supported: ftp, telnet, ssh, http, https,
+#pop3, pop3s, imap, imaps, smtp, vnc, postgresql and socks5.
+#https://github.com/johnnykv/heralding/tree/master
   heralding:
     container_name: heralding
     restart: always
@@ -363,7 +369,9 @@ services:
     volumes:
      - ${TPOT_DATA_PATH}/heralding/log:/var/log/heralding
 
-# Honeyaml service
+# Honeyaml service :This is an API server honeypot whose endpoints and responses are all configurable through a YAML file,
+#supports JWT-based HTTP bearer/token authentication, and logs all accesses into a file in JSON lines format.
+#https://github.com/mmta/honeyaml
   honeyaml:
     container_name: honeyaml
     restart: always
@@ -400,7 +408,7 @@ services:
      - ${TPOT_DATA_PATH}/honeytrap/downloads:/opt/honeytrap/var/downloads
      - ${TPOT_DATA_PATH}/honeytrap/log:/opt/honeytrap/var/log
 
-# Ipphoney service
+# Ipphoney service internet printing service, This is a honeypot simulating a printer that supports the Internet Printing Protocol and is exposed to the Internet. 
   ipphoney:
     container_name: ipphoney
     restart: always
@@ -417,7 +425,10 @@ services:
     volumes:
      - ${TPOT_DATA_PATH}/ipphoney/log:/opt/ipphoney/log
 
-# Mailoney service
+# Mailoney service EMAIL SMTP honeypot
+#Mailoney is a SMTP Honeypot I wrote just to have fun learning Python.
+#There are various modules or types (see below) that provide custom modes to fit your needs.
+#https://github.com/phin3has/mailoney
   mailoney:
     container_name: mailoney
     stdin_open: true
@@ -437,24 +448,26 @@ services:
     volumes:
      - ${TPOT_DATA_PATH}/mailoney/log:/opt/mailoney/logs
 
-# Medpot service
-  medpot:
-    container_name: medpot
-    restart: always
-    depends_on:
-      tpotinit:
-        condition: service_healthy
-    networks:
-     - medpot_local
-    ports:
-     - "2575:2575"
-    image: ${TPOT_REPO}/medpot:${TPOT_VERSION}
-    pull_policy: ${TPOT_PULL_POLICY}
-    read_only: true
-    volumes:
-     - ${TPOT_DATA_PATH}/medpot/log/:/var/log/medpot
+# Medpot service 
+#Fast Healthcare Interoperability Resources
+  # medpot:
+  #   container_name: medpot
+  #   restart: always
+  #   depends_on:
+  #     tpotinit:
+  #       condition: service_healthy
+  #   networks:
+  #    - medpot_local
+  #   ports:
+  #    - "2575:2575"
+  #   image: ${TPOT_REPO}/medpot:${TPOT_VERSION}
+  #   pull_policy: ${TPOT_PULL_POLICY}
+  #   read_only: true
+  #   volumes:
+  #    - ${TPOT_DATA_PATH}/medpot/log/:/var/log/medpot
 
-# Miniprint service
+# Miniprint service:  A medium interaction printer
+#https://github.com/sa7mon/miniprint
   miniprint:
     container_name: miniprint
     restart: always
@@ -473,6 +486,8 @@ services:
      - ${TPOT_DATA_PATH}/miniprint/uploads/:/opt/miniprint/uploads/
 
 # Redishoneypot service
+# High Interaction Honeypot Solution for Redis protocol 
+#https://github.com/cypwnpwnsocute/RedisHoneyPot
   redishoneypot:
     container_name: redishoneypot
     restart: always
@@ -490,6 +505,11 @@ services:
      - ${TPOT_DATA_PATH}/redishoneypot/log:/var/log/redishoneypot
 
 # SentryPeer service
+#SentryPeer® is a fraud detection tool. It lets bad actors try to make phone calls and saves 
+#the IP address they came from and number they tried to call. Those details can then be used 
+#to raise notifications at the service providers network and the next time a user/customer 
+#tries to call a collected number, you can act anyway you see fit.
+#https://sentrypeer.org/
   sentrypeer:
     container_name: sentrypeer
     restart: always
@@ -513,6 +533,7 @@ services:
 
 #### Snare / Tanner
 ## Tanner Redis Service
+#  convert existing Web pages into attack surfaces with TANNER
   tanner_redis:
     container_name: tanner_redis
     restart: always
@@ -592,7 +613,10 @@ services:
     image: ${TPOT_REPO}/snare:${TPOT_VERSION}
     pull_policy: ${TPOT_PULL_POLICY}
 
-# Wordpot service
+# Wordpot service  A Wordpress Honeypot 
+#To configure the honeypot you can edit the config file wordpot.conf 
+#or provide arguments trough the command line interface as shown above.
+#https://github.com/gbrindisi/wordpot
   wordpot:
     container_name: wordpot
     restart: always
@@ -614,7 +638,8 @@ services:
 #### NSM
 ##################
 
-# Fatt service
+# Fatt service FATT /fingerprintAllTheThings - a pyshark based script for extracting 
+# network metadata and fingerprints from pcap files and live network traffic 
   fatt:
     container_name: fatt
     restart: always
@@ -631,7 +656,7 @@ services:
     volumes:
      - ${TPOT_DATA_PATH}/fatt/log:/opt/fatt/log
 
-# P0f service
+# P0f service passive :traffic fingerprinting mechanisms to identify the players behind any incidental TCP/IP communications without interfering in any way.
   p0f:
     container_name: p0f
     restart: always
@@ -645,7 +670,7 @@ services:
     volumes:
      - ${TPOT_DATA_PATH}/p0f/log:/var/log/p0f
 
-# Suricata service
+# Suricata service : open-source based intrusion detection system and intrusion prevention system
   suricata:
     container_name: suricata
     restart: always
@@ -865,3 +890,5 @@ services:
 volumes:
   wp: {}
   db: {}
+
+
