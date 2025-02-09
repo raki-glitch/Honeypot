@@ -1,13 +1,13 @@
 # T-Pot: STANDARD
 networks:
-  adbhoney_local:
-  ciscoasa_local:
-  conpot_local_IEC104:
-  conpot_local_guardian_ast:
-  conpot_local_ipmi:
-  conpot_local_kamstrup_382:
+#  adbhoney_local:
+#  ciscoasa_local:
+#  conpot_local_IEC104:
+#  conpot_local_guardian_ast:
+#  conpot_local_ipmi:
+#  conpot_local_kamstrup_382:
   cowrie_local:
-  dicompot_local:
+#  dicompot_local:
   dionaea_local:
   elasticpot_local:
   h0neytr4p_local:
@@ -15,7 +15,7 @@ networks:
   honeyaml_local:
   ipphoney_local:
   mailoney_local:
-  medpot_local:
+#  medpot_local:
   miniprint_local:
   redishoneypot_local:
   sentrypeer_local:
