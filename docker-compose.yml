@@ -389,7 +389,7 @@ services:
     volumes:
      - ${TPOT_DATA_PATH}/honeyaml/log:/opt/honeyaml/log/
 
-# Honeytrap service
+# Honeytrap service : for managing other honeypots
   honeytrap:
     container_name: honeytrap
     restart: always
