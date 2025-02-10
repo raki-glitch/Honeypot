@@ -61,7 +61,7 @@ services:
 
   dvwp:
     extends:
-      file: ./docker/dvwp/docker-compose.yml
+      file: ./docker/dvwp_pot/docker-compose.yml
       service: wordpress
     networks:
       - dvwp_local
