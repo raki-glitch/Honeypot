@@ -15,7 +15,7 @@ networks:
   honeyaml_local:
   ipphoney_local:
   mailoney_local:
-#  medpot_local:
+#  medpot_local:  
   miniprint_local:
   redishoneypot_local:
   sentrypeer_local:
