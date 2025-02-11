@@ -5,13 +5,13 @@ services:
     build: .
     container_name: tpotinit
     env_file:
-      - $HOME/tpotce/.env
+      - $HOME/Honeypot/.env
     restart: "no"
     stop_grace_period: 60s
     image: "dtagdevsec/tpotinit:24.04"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - $HOME/tpotce/data:/data
+      - $HOME/Honeypot/data:/data
     network_mode: "host"
     cap_add:
      - NET_ADMIN
