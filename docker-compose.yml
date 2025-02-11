@@ -348,7 +348,7 @@ services:
     networks:
      - heralding_local
     ports:
-     - "2121:21"
+     - "2120:21"
      - "2222:22"
      - "2323:23"
      - "2525:25"
