@@ -905,8 +905,9 @@ services:
       - "5044:64305"  # Logstash input
       - "9600:9600"  # Logstash monitoring
     depends_on:
-      - kafka
-      - elasticsearch:
+      kafka:
+        condition: service_healthy
+      elasticsearch:
         condition: service_healthy
     mem_limit: 2g
     image: ${TPOT_REPO}/logstash:${TPOT_VERSION}
