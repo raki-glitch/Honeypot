@@ -888,8 +888,68 @@ services:
     pull_policy: ${TPOT_PULL_POLICY}
     volumes:
      - ${TPOT_DATA_PATH}/spiderfoot:/home/spiderfoot/.spiderfoot
+  logstashForAI:
+    container_name: logstashlogstashForAI
+    restart: always
+    volumes:
+      - ${TPOT_DATA_PATH}:/data
+    networks:
+     - nginx_local
+    environment:
+     - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
+     - TPOT_TYPE=${TPOT_TYPE:-HIVE}
+     - TPOT_HIVE_USER=${TPOT_HIVE_USER}
+     - TPOT_HIVE_IP=${TPOT_HIVE_IP}
+     - LS_SSL_VERIFICATION=${LS_SSL_VERIFICATION:-full}
+    ports:
+      - "5044:64305"  # Logstash input
+      - "9600:9600"  # Logstash monitoring
+    depends_on:
+      - kafka
+      - elasticsearch:
+        condition: service_healthy
+    mem_limit: 2g
+    image: ${TPOT_REPO}/logstash:${TPOT_VERSION}
+    pull_policy: ${TPOT_PULL_POLICY}
+
+  kafka:
+    image: confluentinc/cp-kafka:7.0.1
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
+    depends_on:
+      - zookeeper
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.1
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  ai_training:
+    build: ./docker/HONEYTRAINER
+    container_name: ai_training
+    volumes:
+      - ./HONEYTRAINER:/app
+    depends_on:
+      - kafka
+    environment:
+      - KAFKA_BROKER=kafka:9092
+
+  ai_api:
+    build: ./docker/HONEYAISERVER
+    container_name: ai_api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ai_training
+
 volumes:
   wp: {}
   db: {}
-
-

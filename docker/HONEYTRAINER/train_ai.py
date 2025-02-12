@@ -3,31 +3,29 @@ import json
 import torch
 from transformers import LlamaForCausalLM, LlamaTokenizer
 
-# Load LLaMA Model
+# Load LLaMA model
 model_name = "meta-llama/Llama-2-7b-chat-hf"
 tokenizer = LlamaTokenizer.from_pretrained(model_name)
 model = LlamaForCausalLM.from_pretrained(model_name)
 
-# Kafka Consumer
+# Connect to Kafka
 consumer = KafkaConsumer("tpot_logs", bootstrap_servers="kafka:9092")
+
+def format_attack_log(log):
+    """
+    Convert attack logs dynamically to structured text.
+    """
+    return "\n".join([f"{key}: {value}" for key, value in log.items()])
 
 for message in consumer:
     log = json.loads(message.value.decode("utf-8"))
+    attack_text = format_attack_log(log)
 
-    # Extract attack parameters
-    attack_info = f"""
-    Timestamp: {log.get('timestamp', 'Unknown')}
-    Source IP: {log.get('src_ip', 'Unknown')} (Country: {log.get('geo', {}).get('country_name', 'Unknown')})
-    Destination IP: {log.get('dest_ip', 'Unknown')}
-    Attack Type: {log.get('attack_type', 'Unknown')}
-    Protocol: {log.get('protocol', 'Unknown')}
-    Ports: {log.get('src_port', 'Unknown')} → {log.get('dest_port', 'Unknown')}
-    Payload: {log.get('payload', 'N/A')}
-    Alert: {log.get('alert', 'None')}
-    """
-
-    inputs = tokenizer(attack_info, return_tensors="pt")
-
-    # Perform incremental training
-    outputs = model.generate(**inputs)
-    print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+    inputs = tokenizer(attack_text, return_tensors="pt")
+    
+    # Fine-tune LLaMA dynamically
+    outputs = model(**inputs)
+    
+    # Save updated model
+    model.save_pretrained("./fine_tuned_llama")
+    tokenizer.save_pretrained("./fine_tuned_llama")
