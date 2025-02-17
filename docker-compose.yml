@@ -22,7 +22,6 @@ networks:
   tanner_local:
   wordpot_local:
   nginx_local:
-    external: true
   ewsposter_local:
   dvwp_local:
 
@@ -919,11 +918,10 @@ services:
     networks:
      - nginx_local
     environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      environment:
-        - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
-        - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_BROKER_ID: 1
+      - KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
 
     depends_on:
       - zookeeper
@@ -941,6 +939,8 @@ services:
       - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+     - nginx_local
 
   ai_training:
     build: ./docker/HONEYTRAINER
