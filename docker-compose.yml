@@ -304,7 +304,7 @@ services:
     networks:
      - elasticpot_local
     ports:
-     - "9200:9200"
+     - "9300:9200"
     image: ${TPOT_REPO}/elasticpot:${TPOT_VERSION}
     pull_policy: ${TPOT_PULL_POLICY}
     read_only: true
@@ -889,7 +889,7 @@ services:
     volumes:
      - ${TPOT_DATA_PATH}/spiderfoot:/home/spiderfoot/.spiderfoot
   logstashForAI:
-    container_name: logstashlogstashForAI
+    container_name: logstashForAI
     restart: always
     volumes:
       - ${TPOT_DATA_PATH}:/data
