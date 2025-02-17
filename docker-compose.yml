@@ -895,7 +895,7 @@ services:
     container_name: logstash_data_parser
     volumes:
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ${TPOT_DATA_PATH}/suricata/log:/var/log/suricata
+      - ${TPOT_DATA_PATH}/suricata/log:/tpot_logs
     networks:
      - nginx_local
     environment:
