@@ -60,6 +60,7 @@ services:
 ##################
 
   dvwp:
+    container_name: dvwp
     extends:
       file: ./docker/dvwp_pot/docker-compose.yml
       service: wordpress
