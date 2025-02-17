@@ -888,31 +888,27 @@ services:
     pull_policy: ${TPOT_PULL_POLICY}
     volumes:
      - ${TPOT_DATA_PATH}/spiderfoot:/home/spiderfoot/.spiderfoot
-  logstashForAI:
-    container_name: logstashForAI
-    restart: always
+
+  logstash_data_parser:
+    image: docker.elastic.co/logstash/logstash:7.17.0
+    container_name: logstash_data_parser
     volumes:
-      - ${TPOT_DATA_PATH}:/data
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ${TPOT_DATA_PATH}/suricata/log:/var/log/suricata
     networks:
      - nginx_local
     environment:
      - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
-     - TPOT_TYPE=${TPOT_TYPE:-HIVE}
-     - TPOT_HIVE_USER=${TPOT_HIVE_USER}
-     - TPOT_HIVE_IP=${TPOT_HIVE_IP}
+    #  - TPOT_TYPE=${TPOT_TYPE:-HIVE}
+    #  - TPOT_HIVE_USER=${TPOT_HIVE_USER}
+    #  - TPOT_HIVE_IP=${TPOT_HIVE_IP}
      - LS_SSL_VERIFICATION=${LS_SSL_VERIFICATION:-full}
     ports:
-      - "5044:64305"  # Logstash input
+      - "5044:5044"  # Logstash input
       - "9600:9600"  # Logstash monitoring
     depends_on:
-      kafka:
-        condition: service_healthy
-      elasticsearch:
-        condition: service_healthy
-    mem_limit: 2g
-    image: ${TPOT_REPO}/logstash:${TPOT_VERSION}
-    pull_policy: ${TPOT_PULL_POLICY}
-
+      - kafka
+      - tpotinit
   kafka:
     image: confluentinc/cp-kafka:7.0.1
     container_name: kafka
