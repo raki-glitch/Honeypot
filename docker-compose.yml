@@ -924,6 +924,12 @@ services:
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
     depends_on:
       - zookeeper
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9092"]
+      interval: 30s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
