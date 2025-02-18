@@ -919,10 +919,9 @@ services:
      - nginx_local
     environment:
       - KAFKA_BROKER_ID=1
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ZOOKEEPER_CONNECT=20.220.175.44:2181
       - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://20.220.175.44:9092
       - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
-
     depends_on:
       - zookeeper
     healthcheck:
