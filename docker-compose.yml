@@ -1,13 +1,13 @@
 # T-Pot: STANDARD
 networks:
-#  adbhoney_local:
-#  ciscoasa_local:
-#  conpot_local_IEC104:
-#  conpot_local_guardian_ast:
-#  conpot_local_ipmi:
-#  conpot_local_kamstrup_382:
+  adbhoney_local:
+  ciscoasa_local:
+  conpot_local_IEC104:
+  conpot_local_guardian_ast:
+  conpot_local_ipmi:
+  conpot_local_kamstrup_382:
   cowrie_local:
-#  dicompot_local:
+  dicompot_local:
   dionaea_local:
   elasticpot_local:
   h0neytr4p_local:
@@ -15,7 +15,7 @@ networks:
   honeyaml_local:
   ipphoney_local:
   mailoney_local:
-#  medpot_local:  
+  medpot_local:  
   miniprint_local:
   redishoneypot_local:
   sentrypeer_local:
@@ -67,146 +67,146 @@ services:
     networks:
       - dvwp_local
 
-# Adbhoney service
-  # adbhoney:
-  #   container_name: adbhoney
-  #   restart: always
-  #   depends_on:
-  #     tpotinit:
-  #       condition: service_healthy
-  #   networks:
-  #    - adbhoney_local
-  #   ports:
-  #    - "5555:5555"
-  #   image: ${TPOT_REPO}/adbhoney:${TPOT_VERSION}
-  #   pull_policy: ${TPOT_PULL_POLICY}
-  #   read_only: true
-  #   volumes:
-  #    - ${TPOT_DATA_PATH}/adbhoney/log:/opt/adbhoney/log
-  #    - ${TPOT_DATA_PATH}/adbhoney/downloads:/opt/adbhoney/dl
+  # Adbhoney service
+  adbhoney:
+    container_name: adbhoney
+    restart: always
+    depends_on:
+      tpotinit:
+        condition: service_healthy
+    networks:
+     - adbhoney_local
+    ports:
+     - "5555:5555"
+    image: ${TPOT_REPO}/adbhoney:${TPOT_VERSION}
+    pull_policy: ${TPOT_PULL_POLICY}
+    read_only: true
+    volumes:
+     - ${TPOT_DATA_PATH}/adbhoney/log:/opt/adbhoney/log
+     - ${TPOT_DATA_PATH}/adbhoney/downloads:/opt/adbhoney/dl
 
 # Ciscoasa service
-  # ciscoasa: #Exploiting the vulnerability https://www.exploit-db.com/exploits/43986 
-  #   container_name: ciscoasa
-  #   restart: always
-  #   depends_on:
-  #     tpotinit:
-  #       condition: service_healthy
-  #   tmpfs:
-  #    - /tmp/ciscoasa:uid=2000,gid=2000
-  #   networks:
-  #    - ciscoasa_local
-  #   ports:
-  #    - "5000:5000/udp"
-  #    - "8443:8443"
-  #   image: ${TPOT_REPO}/ciscoasa:${TPOT_VERSION}
-  #   pull_policy: ${TPOT_PULL_POLICY}
-  #   read_only: true
-  #   volumes:
-  #    - ${TPOT_DATA_PATH}/ciscoasa/log:/var/log/ciscoasa
+  ciscoasa: #Exploiting the vulnerability https://www.exploit-db.com/exploits/43986 
+    container_name: ciscoasa
+    restart: always
+    depends_on:
+      tpotinit:
+        condition: service_healthy
+    tmpfs:
+     - /tmp/ciscoasa:uid=2000,gid=2000
+    networks:
+     - ciscoasa_local
+    ports:
+     - "5000:5000/udp"
+     - "8443:8443"
+    image: ${TPOT_REPO}/ciscoasa:${TPOT_VERSION}
+    pull_policy: ${TPOT_PULL_POLICY}
+    read_only: true
+    volumes:
+     - ${TPOT_DATA_PATH}/ciscoasa/log:/var/log/ciscoasa
 
 # # Conpot IEC104 service : Conpot is an ICS honeypot with the goal to collect intelligence 
 # # about the motives and methods of adversaries targeting industrial control systems.
-#   conpot_IEC104:
-#     container_name: conpot_iec104
-#     restart: always
-#     depends_on:
-#       tpotinit:
-#         condition: service_healthy
-#     environment:
-#      - CONPOT_CONFIG=/etc/conpot/conpot.cfg
-#      - CONPOT_JSON_LOG=/var/log/conpot/conpot_IEC104.json
-#      - CONPOT_LOG=/var/log/conpot/conpot_IEC104.log
-#      - CONPOT_TEMPLATE=IEC104
-#      - CONPOT_TMP=/tmp/conpot
-#     tmpfs:
-#      - /tmp/conpot:uid=2000,gid=2000
-#     networks:
-#      - conpot_local_IEC104
-#     ports:
-#      - "161:161/udp"
-#      - "2404:2404"
-#     image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
-#     pull_policy: ${TPOT_PULL_POLICY}
-#     read_only: true
-#     volumes:
-#      - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
+  conpot_IEC104:
+    container_name: conpot_iec104
+    restart: always
+    depends_on:
+      tpotinit:
+        condition: service_healthy
+    environment:
+     - CONPOT_CONFIG=/etc/conpot/conpot.cfg
+     - CONPOT_JSON_LOG=/var/log/conpot/conpot_IEC104.json
+     - CONPOT_LOG=/var/log/conpot/conpot_IEC104.log
+     - CONPOT_TEMPLATE=IEC104
+     - CONPOT_TMP=/tmp/conpot
+    tmpfs:
+     - /tmp/conpot:uid=2000,gid=2000
+    networks:
+     - conpot_local_IEC104
+    ports:
+     - "161:161/udp"
+     - "2404:2404"
+    image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
+    pull_policy: ${TPOT_PULL_POLICY}
+    read_only: true
+    volumes:
+     - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
 
 # # Conpot guardian_ast service
-#   conpot_guardian_ast:
-#     container_name: conpot_guardian_ast
-#     restart: always
-#     depends_on:
-#       tpotinit:
-#         condition: service_healthy
-#     environment:
-#      - CONPOT_CONFIG=/etc/conpot/conpot.cfg
-#      - CONPOT_JSON_LOG=/var/log/conpot/conpot_guardian_ast.json
-#      - CONPOT_LOG=/var/log/conpot/conpot_guardian_ast.log
-#      - CONPOT_TEMPLATE=guardian_ast
-#      - CONPOT_TMP=/tmp/conpot
-#     tmpfs:
-#      - /tmp/conpot:uid=2000,gid=2000
-#     networks:
-#      - conpot_local_guardian_ast
-#     ports:
-#      - "10001:10001"
-#     image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
-#     pull_policy: ${TPOT_PULL_POLICY}
-#     read_only: true
-#     volumes:
-#      - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
+  conpot_guardian_ast:
+    container_name: conpot_guardian_ast
+    restart: always
+    depends_on:
+      tpotinit:
+        condition: service_healthy
+    environment:
+     - CONPOT_CONFIG=/etc/conpot/conpot.cfg
+     - CONPOT_JSON_LOG=/var/log/conpot/conpot_guardian_ast.json
+     - CONPOT_LOG=/var/log/conpot/conpot_guardian_ast.log
+     - CONPOT_TEMPLATE=guardian_ast
+     - CONPOT_TMP=/tmp/conpot
+    tmpfs:
+     - /tmp/conpot:uid=2000,gid=2000
+    networks:
+     - conpot_local_guardian_ast
+    ports:
+     - "10001:10001"
+    image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
+    pull_policy: ${TPOT_PULL_POLICY}
+    read_only: true
+    volumes:
+     - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
 
 # Conpot ipmi
-  # conpot_ipmi: #https://i.dell.com/sites/doccontent/business/solutions/engineering-docs/en/Documents/R410-TechGuide-10192010rev2-final.pdf
-  #   container_name: conpot_ipmi
-  #   restart: always
-  #   depends_on:
-  #     tpotinit:
-  #       condition: service_healthy
-  #   environment:
-  #    - CONPOT_CONFIG=/etc/conpot/conpot.cfg
-  #    - CONPOT_JSON_LOG=/var/log/conpot/conpot_ipmi.json
-  #    - CONPOT_LOG=/var/log/conpot/conpot_ipmi.log
-  #    - CONPOT_TEMPLATE=ipmi
-  #    - CONPOT_TMP=/tmp/conpot
-  #   tmpfs:
-  #    - /tmp/conpot:uid=2000,gid=2000
-  #   networks:
-  #    - conpot_local_ipmi
-  #   ports:
-  #    - "623:623/udp"
-  #   image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
-  #   pull_policy: ${TPOT_PULL_POLICY}
-  #   read_only: true
-  #   volumes:
-  #    - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
+  conpot_ipmi: #https://i.dell.com/sites/doccontent/business/solutions/engineering-docs/en/Documents/R410-TechGuide-10192010rev2-final.pdf
+    container_name: conpot_ipmi
+    restart: always
+    depends_on:
+      tpotinit:
+        condition: service_healthy
+    environment:
+     - CONPOT_CONFIG=/etc/conpot/conpot.cfg
+     - CONPOT_JSON_LOG=/var/log/conpot/conpot_ipmi.json
+     - CONPOT_LOG=/var/log/conpot/conpot_ipmi.log
+     - CONPOT_TEMPLATE=ipmi
+     - CONPOT_TMP=/tmp/conpot
+    tmpfs:
+     - /tmp/conpot:uid=2000,gid=2000
+    networks:
+     - conpot_local_ipmi
+    ports:
+     - "623:623/udp"
+    image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
+    pull_policy: ${TPOT_PULL_POLICY}
+    read_only: true
+    volumes:
+     - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
 
 # Conpot kamstrup_382 https://www.kamstrup.com/product-centre/kamstrup-382
-  # conpot_kamstrup_382:
-  #   container_name: conpot_kamstrup_382
-  #   restart: always
-  #   depends_on:
-  #     tpotinit:
-  #       condition: service_healthy
-  #   environment:
-  #    - CONPOT_CONFIG=/etc/conpot/conpot.cfg
-  #    - CONPOT_JSON_LOG=/var/log/conpot/conpot_kamstrup_382.json
-  #    - CONPOT_LOG=/var/log/conpot/conpot_kamstrup_382.log
-  #    - CONPOT_TEMPLATE=kamstrup_382
-  #    - CONPOT_TMP=/tmp/conpot
-  #   tmpfs:
-  #    - /tmp/conpot:uid=2000,gid=2000
-  #   networks:
-  #    - conpot_local_kamstrup_382
-  #   ports:
-  #    - "1025:1025"
-  #    - "50100:50100"
-  #   image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
-  #   pull_policy: ${TPOT_PULL_POLICY}
-  #   read_only: true
-  #   volumes:
-  #    - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
+  conpot_kamstrup_382:
+    container_name: conpot_kamstrup_382
+    restart: always
+    depends_on:
+      tpotinit:
+        condition: service_healthy
+    environment:
+     - CONPOT_CONFIG=/etc/conpot/conpot.cfg
+     - CONPOT_JSON_LOG=/var/log/conpot/conpot_kamstrup_382.json
+     - CONPOT_LOG=/var/log/conpot/conpot_kamstrup_382.log
+     - CONPOT_TEMPLATE=kamstrup_382
+     - CONPOT_TMP=/tmp/conpot
+    tmpfs:
+     - /tmp/conpot:uid=2000,gid=2000
+    networks:
+     - conpot_local_kamstrup_382
+    ports:
+     - "1025:1025"
+     - "50100:50100"
+    image: ${TPOT_REPO}/conpot:${TPOT_VERSION}
+    pull_policy: ${TPOT_PULL_POLICY}
+    read_only: true
+    volumes:
+     - ${TPOT_DATA_PATH}/conpot/log:/var/log/conpot
 
 # Cowrie service
   cowrie:
@@ -236,23 +236,23 @@ services:
 # Get the Horos Client for testing: https://horosproject.org/
 # Get Dicom images (CC BY 3.0): https://www.cancerimagingarchive.net/collections/
 # Put images (which must be in Dicom DCM format or it will not work!) into /data/dicompot/images
-#   dicompot:
-#     container_name: dicompot
-#     restart: always
-#     depends_on:
-#       tpotinit:
-#         condition: service_healthy
-#     networks:
-#      - dicompot_local
-#     ports:
-#      - "104:11112"
-#      - "11112:11112"
-#     image: ${TPOT_REPO}/dicompot:${TPOT_VERSION}
-#     pull_policy: ${TPOT_PULL_POLICY}
-#     read_only: true
-#     volumes:
-#      - ${TPOT_DATA_PATH}/dicompot/log:/var/log/dicompot
-# #     - ${TPOT_DATA_PATH}/dicompot/images:/opt/dicompot/images
+  dicompot:
+    container_name: dicompot
+    restart: always
+    depends_on:
+      tpotinit:
+        condition: service_healthy
+    networks:
+     - dicompot_local
+    ports:
+     - "104:11112"
+     - "11112:11112"
+    image: ${TPOT_REPO}/dicompot:${TPOT_VERSION}
+    pull_policy: ${TPOT_PULL_POLICY}
+    read_only: true
+    volumes:
+     - ${TPOT_DATA_PATH}/dicompot/log:/var/log/dicompot
+#     - ${TPOT_DATA_PATH}/dicompot/images:/opt/dicompot/images
 
 # Dionaea service Front Web to Dionaea low-interaction honeypot.
   dionaea:
@@ -452,21 +452,21 @@ services:
 
 # Medpot service 
 #Fast Healthcare Interoperability Resources
-  # medpot:
-  #   container_name: medpot
-  #   restart: always
-  #   depends_on:
-  #     tpotinit:
-  #       condition: service_healthy
-  #   networks:
-  #    - medpot_local
-  #   ports:
-  #    - "2575:2575"
-  #   image: ${TPOT_REPO}/medpot:${TPOT_VERSION}
-  #   pull_policy: ${TPOT_PULL_POLICY}
-  #   read_only: true
-  #   volumes:
-  #    - ${TPOT_DATA_PATH}/medpot/log/:/var/log/medpot
+  medpot:
+    container_name: medpot
+    restart: always
+    depends_on:
+      tpotinit:
+        condition: service_healthy
+    networks:
+     - medpot_local
+    ports:
+     - "2575:2575"
+    image: ${TPOT_REPO}/medpot:${TPOT_VERSION}
+    pull_policy: ${TPOT_PULL_POLICY}
+    read_only: true
+    volumes:
+     - ${TPOT_DATA_PATH}/medpot/log/:/var/log/medpot
 
 # Miniprint service:  A medium interaction printer
 #https://github.com/sa7mon/miniprint
