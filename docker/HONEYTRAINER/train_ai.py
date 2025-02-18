@@ -3,10 +3,17 @@ import json
 import torch
 from transformers import LlamaForCausalLM, LlamaTokenizer
 import os
+import logging
 # Load LLaMA model
-model_name = "meta-llama/Llama-2-7b-chat-hf"
-tokenizer = LlamaTokenizer.from_pretrained(model_name)
-model = LlamaForCausalLM.from_pretrained(model_name)
+model_name = "llama2-7b-chat"
+
+logging.basicConfig(level=logging.DEBUG)
+try: #hi im the model
+    tokenizer = LlamaTokenizer.from_pretrained(model_name)
+    model = LlamaForCausalLM.from_pretrained(model_name)
+except Exception as e:
+    logging.error(f"Failed to load model {model_name}: {str(e)}")
+
 kafka_broker = os.getenv("KAFKA_BROKER", "127.0.0.1:9092")  # Default to "kafka:9092" if not set
 # Connect to Kafka
 consumer = KafkaConsumer("tpot_logs", bootstrap_servers=kafka_broker)
