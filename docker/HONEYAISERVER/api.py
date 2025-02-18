@@ -1,12 +1,17 @@
 from fastapi import FastAPI
-from transformers import LlamaForCausalLM, LlamaTokenizer
-
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import logging
 app = FastAPI()
 
 # Load the latest fine-tuned model
 model_name = "./fine_tuned_llama"
-tokenizer = LlamaTokenizer.from_pretrained(model_name)
-model = LlamaForCausalLM.from_pretrained(model_name)
+logging.basicConfig(level=logging.DEBUG)
+
+try: #hi im the model
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+except Exception as e:
+    logging.error(f"Failed to load model {model_name}: {str(e)}")
 
 def format_attack_log(log):
     """

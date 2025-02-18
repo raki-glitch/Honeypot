@@ -949,7 +949,7 @@ services:
     depends_on:
       - kafka
     environment:
-      - KAFKA_BROKER=20.220.175.44:9092
+      KAFKA_BROKER: "20.220.175.44:9092"
 
   ai_api:
     build: ./docker/HONEYAISERVER
