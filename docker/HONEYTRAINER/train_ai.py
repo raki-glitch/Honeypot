@@ -1,16 +1,16 @@
 from kafka import KafkaConsumer
 import json
 import torch
-from transformers import LlamaForCausalLM, LlamaTokenizer
+from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 import logging
 # Load LLaMA model
-model_name = "llama2-7b-chat"
+model_name = "meta-llama/Llama-2-7b-chat-hf"
 
 logging.basicConfig(level=logging.DEBUG)
 try: #hi im the model
-    tokenizer = LlamaTokenizer.from_pretrained(model_name)
-    model = LlamaForCausalLM.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name)
 except Exception as e:
     logging.error(f"Failed to load model {model_name}: {str(e)}")
 
