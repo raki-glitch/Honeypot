@@ -2,14 +2,14 @@ from kafka import KafkaConsumer
 import json
 import torch
 from transformers import LlamaForCausalLM, LlamaTokenizer
-
+import os
 # Load LLaMA model
 model_name = "meta-llama/Llama-2-7b-chat-hf"
 tokenizer = LlamaTokenizer.from_pretrained(model_name)
 model = LlamaForCausalLM.from_pretrained(model_name)
-
+kafka_broker = os.getenv("KAFKA_BROKER", "127.0.0.1:9092")  # Default to "kafka:9092" if not set
 # Connect to Kafka
-consumer = KafkaConsumer("tpot_logs", bootstrap_servers="kafka:9092")
+consumer = KafkaConsumer("tpot_logs", bootstrap_servers=kafka_broker)
 
 def format_attack_log(log):
     """
