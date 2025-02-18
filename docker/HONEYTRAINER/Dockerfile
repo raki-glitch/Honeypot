@@ -4,7 +4,6 @@ WORKDIR /app
 # Install dependencies
 RUN pip install torch==2.6.0 transformers kafka-python pandas
 
-COPY ./train_ai.py /app/train_ai.py
-CMD ["ls -la"]
-
-ENTRYPOINT  ["python", "train_ai.py"]
+COPY ./train_ai.py .
+RUN ls -la /app
+ENTRYPOINT ["python", "train_ai.py"]

@@ -945,7 +945,7 @@ services:
     build: ./docker/HONEYTRAINER
     container_name: ai_training
     volumes:
-      - ./HONEYTRAINER:/app
+      - ./docker/HONEYTRAINER:/app
     depends_on:
       - kafka
     environment:
