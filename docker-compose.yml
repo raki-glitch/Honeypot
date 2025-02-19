@@ -953,7 +953,7 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
-    qcontainer_name: zookeeper
+    container_name: zookeeper
     networks:
       - tpot_bridge  
     ports:
