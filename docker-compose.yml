@@ -724,8 +724,6 @@ services:
     depends_on:
       tpotinit:
         condition: service_healthy
-    networks:
-     - nginx_local
     environment:
      - bootstrap.memory_lock=true
      - ES_JAVA_OPTS=-Xms2048m -Xmx2048m
