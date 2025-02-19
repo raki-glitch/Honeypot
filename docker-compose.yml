@@ -965,6 +965,8 @@ services:
   ai_training:
     build: ./docker/HONEYTRAINER
     container_name: ai_training
+    networks:
+      - tpot_bridge
     volumes:
       - ./docker/HONEYTRAINER:/app
     depends_on:
