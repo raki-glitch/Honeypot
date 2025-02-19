@@ -1,5 +1,7 @@
 # T-Pot: STANDARD
 networks:
+  tpot_bridge:
+    driver: bridge
   adbhoney_local:
   ciscoasa_local:
   conpot_local_IEC104:
@@ -635,6 +637,22 @@ services:
     volumes:
      - ${TPOT_DATA_PATH}/wordpot/log:/opt/wordpot/logs/
 
+  illusion-detector:
+    build: ./docker/illusion-detector
+    container_name: illusion-detector
+    restart: always
+    volumes:
+      - ./data/illusion-detector:/data
+    networks:
+      - tpot_bridge #USING BRIDE CONNECTION ON THIS ONE
+      - dvwp_local  # For SQLi, explicitly sitting this
+      - nginx_local  # For general web attacks, explicitly sitting this
+      - cowrie_local  # If adding SSH brute-force, explicitly sitting this
+    depends_on:
+      - kafka
+      - tpotinit
+    environment:
+      KAFKA_BROKER: "127.0.0.1:9092"
 
 ##################
 #### NSM
