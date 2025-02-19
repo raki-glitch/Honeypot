@@ -724,6 +724,8 @@ services:
     depends_on:
       tpotinit:
         condition: service_healthy
+    networks:
+     - nginx_local
     environment:
      - bootstrap.memory_lock=true
      - ES_JAVA_OPTS=-Xms2048m -Xmx2048m
@@ -909,6 +911,8 @@ services:
   logstash_data_parser:
     image: docker.elastic.co/logstash/logstash:7.17.0
     container_name: logstash_data_parser
+    networks:
+     - nginx_local
     volumes:
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
       - ${TPOT_DATA_PATH}/suricata/log:/tpot_logs
