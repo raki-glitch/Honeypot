@@ -726,6 +726,7 @@ services:
         condition: service_healthy
     networks:
      - nginx_local
+     - tpot_bridge
     environment:
      - bootstrap.memory_lock=true
      - ES_JAVA_OPTS=-Xms2048m -Xmx2048m
@@ -913,6 +914,7 @@ services:
     container_name: logstash_data_parser
     networks:
      - nginx_local
+     - tpot_bridge
     volumes:
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
       - ${TPOT_DATA_PATH}/suricata/log:/tpot_logs
@@ -931,6 +933,8 @@ services:
   kafka:
     image: confluentinc/cp-kafka:7.0.1
     container_name: kafka
+    networks:
+     - tpot_bridge
     ports:
       - "9092:9092"
     environment:
@@ -949,7 +953,9 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
-    container_name: zookeeper
+    qcontainer_name: zookeeper
+    networks:
+      - tpot_bridge  
     ports:
       - "2181:2181"
     environment:
