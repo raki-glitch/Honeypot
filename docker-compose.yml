@@ -914,8 +914,6 @@ services:
     volumes:
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
       - ${TPOT_DATA_PATH}/suricata/log:/tpot_logs
-    networks:
-     - nginx_local
     environment:
      - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
     #  - TPOT_TYPE=${TPOT_TYPE:-HIVE}
