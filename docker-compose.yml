@@ -652,7 +652,7 @@ services:
       - kafka
       - tpotinit
     environment:
-      KAFKA_BROKER: "127.0.0.1:9092"
+      KAFKA_BROKER: "kafka:9092"
 
 ##################
 #### NSM
@@ -964,7 +964,7 @@ services:
     depends_on:
       - kafka
     environment:
-      KAFKA_BROKER: "127.0.0.1:9092"
+      KAFKA_BROKER: "kafka:9092"
 
   ai_api:
     build: ./docker/HONEYAISERVER
