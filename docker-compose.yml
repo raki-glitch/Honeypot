@@ -676,7 +676,7 @@ services:
       - conpot_IEC104
       - conpot_guardian_ast
       - conpot_ipmi
-      - conpot_local_kamstrup_382
+      - conpot_kamstrup_382
       - cowrie
       - dicompot
       - tpotinit
