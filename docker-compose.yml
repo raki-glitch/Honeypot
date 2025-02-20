@@ -645,12 +645,57 @@ services:
       - ./data/illusion-detector:/data
     networks:
       - tpot_bridge #USING BRIDE CONNECTION ON THIS ONE
-      - dvwp_local  # For SQLi, explicitly sitting this
-      - nginx_local  # For general web attacks, explicitly sitting this
-      - cowrie_local  # If adding SSH brute-force, explicitly sitting this
+      - adbhoney_local
+      - ciscoasa_local
+      - conpot_local_IEC104
+      - conpot_local_guardian_ast
+      - conpot_local_ipmi
+      - conpot_local_kamstrup_382
+      - cowrie_local
+      - dicompot_local
+      - dionaea_local
+      - elasticpot_local
+      - h0neytr4p_local
+      - heralding_local
+      - honeyaml_local
+      - ipphoney_local
+      - mailoney_local
+      - medpot_local
+      - miniprint_local
+      - redishoneypot_local
+      - sentrypeer_local
+      - tanner_local
+      - wordpot_local
+      - nginx_local
+      - ewsposter_local
+      - dvwp_local  # If adding SSH brute-force, explicitly sitting this
     depends_on:
       - kafka
+      - adbhoney
+      - ciscoasa
+      - conpot_IEC104
+      - conpot_guardian_ast
+      - conpot_ipmi
+      - conpot_local_kamstrup_382
+      - cowrie
+      - dicompot
       - tpotinit
+      - dvwp
+      - ewsposter
+      - nginx
+      - wordpot
+      - tanner
+      - sentrypeer
+      - redishoneypot
+      - miniprint
+      - medpot
+      - mailoney
+      - ipphoney
+      - honeyaml
+      - heralding
+      - h0neytr4p
+      - elasticpot
+      - dionaea
     environment:
       KAFKA_BROKER: "kafka:9092"
 
