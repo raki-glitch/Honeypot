@@ -644,7 +644,6 @@ services:
     volumes:
       - ./data/illusion-detector:/data
     networks:
-      - tpot_bridge
       - tpot_bridge #USING BRIDE CONNECTION ON THIS ONE
       - dvwp_local  # For SQLi, explicitly sitting this
       - nginx_local  # For general web attacks, explicitly sitting this
