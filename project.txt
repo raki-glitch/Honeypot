@@ -1,0 +1,12 @@
+[12:22 p.m., 2025-02-19] Raki: entrain d`implementer `detection des attaques dillusion des malwares ou ceux qui provient des services web comme les attques des sql injections `
+[12:27 p.m., 2025-02-19] Raki: maintenant extending la detection dillusion des malware en utilisant auditd
+[12:27 p.m., 2025-02-19] Raki: integration du Active directory  honeypot
+[12:27 p.m., 2025-02-19] Raki:
+je suis entrain de faire un conteneur qui execute nos attques a travers le tor
+
+je vais faire unebase de donnees sql ,puis j'expose un fichier php du parametre id pour les attaques sql.
+utilizer une mot de passe tres facile a compronettre
+
+
+logstash_data_parser is not working
+ewsposter not finding logs of some honeypots

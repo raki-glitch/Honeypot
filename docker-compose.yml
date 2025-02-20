@@ -25,7 +25,7 @@ networks:
   wordpot_local:
   nginx_local:
   ewsposter_local:
-  dvwp_local:
+
 
 services:
 
@@ -66,9 +66,7 @@ services:
     extends:
       file: ./docker/dvwp_pot/docker-compose.yml
       service: wordpress
-    networks:
-      - dvwp_local
-
+    
   # Adbhoney service
   adbhoney:
     container_name: adbhoney
@@ -668,7 +666,6 @@ services:
       - wordpot_local
       - nginx_local
       - ewsposter_local
-      - dvwp_local  # If adding SSH brute-force, explicitly sitting this
     depends_on:
       - kafka
       - adbhoney
