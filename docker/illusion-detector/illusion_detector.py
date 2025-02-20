@@ -5,7 +5,7 @@ import re
 import os
 kafka_broker = os.getenv("KAFKA_BROKER", "127.0.0.1:9092")  # Default to "kafka:9092" if not set
 
-INPUT_TOPIC = "honeypot_logs"
+INPUT_TOPIC = "tpot_logs"
 OUTPUT_TOPIC = "illusion_alerts"
 
 # Set up Kafka consumer
