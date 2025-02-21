@@ -822,8 +822,8 @@ services:
     #  - TPOT_HIVE_IP=${TPOT_HIVE_IP}
      - LS_SSL_VERIFICATION=${LS_SSL_VERIFICATION:-full}
     ports:
-      - "5044:5044"  # Logstash input
-      - "9600:9600"  # Logstash monitoring
+      - "127.0.0.1:5044:5044"  # Logstash input
+      - "127.0.0.1:9600:9600"  # Logstash monitoring
     depends_on:
       - kafka
       - tpotinit
@@ -979,7 +979,7 @@ services:
     networks:
      - tpot_bridge
     ports:
-      - "9092:9092"
+      - "127.0.0.1:9092:9092"
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
@@ -1000,7 +1000,7 @@ services:
     networks:
       - tpot_bridge  
     ports:
-      - "2181:2181"
+      - "127.0.0.1:2181:2181"
     environment:
       - ZOOKEEPER_CLIENT_PORT=2181
 
