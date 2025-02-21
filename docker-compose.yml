@@ -782,7 +782,7 @@ services:
       nofile:
         soft: 65536
         hard: 65536
-    mem_limit: 4g
+    mem_limit: 20g
     ports:
      - "127.0.0.1:64298:9200"
     image: ${TPOT_REPO}/elasticsearch:${TPOT_VERSION}
@@ -804,6 +804,29 @@ services:
      - "127.0.0.1:64296:5601"
     image: ${TPOT_REPO}/kibana:${TPOT_VERSION}
     pull_policy: ${TPOT_PULL_POLICY}
+
+
+  logstash_data_parser:
+    image: docker.elastic.co/logstash/logstash:7.17.0
+    container_name: logstash_data_parser
+    networks:
+     - nginx_local
+     - tpot_bridge
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ${TPOT_DATA_PATH}/suricata/log:/tpot_logs
+    environment:
+     - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
+    #  - TPOT_TYPE=${TPOT_TYPE:-HIVE}
+    #  - TPOT_HIVE_USER=${TPOT_HIVE_USER}
+    #  - TPOT_HIVE_IP=${TPOT_HIVE_IP}
+     - LS_SSL_VERIFICATION=${LS_SSL_VERIFICATION:-full}
+    ports:
+      - "5044:5044"  # Logstash input
+      - "9600:9600"  # Logstash monitoring
+    depends_on:
+      - kafka
+      - tpotinit
 
 ## Logstash service
   logstash:
@@ -827,7 +850,7 @@ services:
     pull_policy: ${TPOT_PULL_POLICY}
     volumes:
      - ${TPOT_DATA_PATH}:/data
-
+     - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
 ## Map Redis Service
   map_redis:
     container_name: map_redis
@@ -944,34 +967,12 @@ services:
         condition: service_healthy
     networks: 
      - nginx_local
-    ports:
-     - "127.0.0.1:64303:8080"
+#    ports:
+#     - "127.0.0.1:64303:8080"
     image: ${TPOT_REPO}/spiderfoot:${TPOT_VERSION}
     pull_policy: ${TPOT_PULL_POLICY}
     volumes:
      - ${TPOT_DATA_PATH}/spiderfoot:/home/spiderfoot/.spiderfoot
-
-  logstash_data_parser:
-    image: docker.elastic.co/logstash/logstash:7.17.0
-    container_name: logstash_data_parser
-    networks:
-     - nginx_local
-     - tpot_bridge
-    volumes:
-      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ${TPOT_DATA_PATH}/suricata/log:/tpot_logs
-    environment:
-     - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
-    #  - TPOT_TYPE=${TPOT_TYPE:-HIVE}
-    #  - TPOT_HIVE_USER=${TPOT_HIVE_USER}
-    #  - TPOT_HIVE_IP=${TPOT_HIVE_IP}
-     - LS_SSL_VERIFICATION=${LS_SSL_VERIFICATION:-full}
-    ports:
-      - "5044:5044"  # Logstash input
-      - "9600:9600"  # Logstash monitoring
-    depends_on:
-      - kafka
-      - tpotinit
   kafka:
     image: confluentinc/cp-kafka:7.0.1
     container_name: kafka
