@@ -946,9 +946,9 @@ services:
      - /var/lib/nginx/tmp:uid=100,gid=82
     networks:
      - nginx_local
-#    ports:
-#     - "64297:64297"
-#     - "64294:64294"
+    ports:
+     - "64297:64297"
+     - "64294:64294"
     image: ${TPOT_REPO}/nginx:${TPOT_VERSION}
     pull_policy: ${TPOT_PULL_POLICY}
     read_only: true
