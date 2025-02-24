@@ -768,7 +768,6 @@ services:
         condition: service_healthy
     networks:
      - nginx_local
-     - tpot_bridge
     environment:
      - bootstrap.memory_lock=true
      - ES_JAVA_OPTS=-Xms2048m -Xmx2048m
@@ -837,7 +836,6 @@ services:
         condition: service_healthy
     networks:
      - nginx_local
-     - tpot_bridge
     environment:
      - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
      - TPOT_TYPE=${TPOT_TYPE:-HIVE}
@@ -968,8 +966,8 @@ services:
         condition: service_healthy
     networks: 
      - nginx_local
-#    ports:
-#     - "127.0.0.1:64303:8080"
+    ports:
+     - "127.0.0.1:64303:8080"
     image: ${TPOT_REPO}/spiderfoot:${TPOT_VERSION}
     pull_policy: ${TPOT_PULL_POLICY}
     volumes:
@@ -978,7 +976,7 @@ services:
     image: confluentinc/cp-kafka:7.0.1
     container_name: kafka
     networks:
-     - tpot_bridge
+     - nginx_local
     ports:
       - "9092:9092"
     environment:
@@ -999,7 +997,7 @@ services:
     image: confluentinc/cp-zookeeper:7.0.1
     container_name: zookeeper
     networks:
-      - tpot_bridge  
+      - nginx_local  
     ports:
       - "2181:2181"
     environment:
@@ -1011,7 +1009,6 @@ services:
     container_name: ai_training
     networks:
       - nginx_local
-      - tpot_bridge
     volumes:
       - ./docker/HONEYTRAINER:/app
     depends_on:
