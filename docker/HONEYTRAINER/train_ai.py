@@ -32,7 +32,14 @@ for message in consumer:
     
     # Fine-tune LLaMA dynamically
     outputs = model(**inputs)
-    
-    # Save updated model
-    model.save_pretrained("./fine_tuned_llama")
-    tokenizer.save_pretrained("./fine_tuned_llama")
+    save_path = "./fine_tuned_llama"
+
+    # If a file exists instead of a directory, remove it
+    if os.path.exists(save_path) and not os.path.isdir(save_path):
+        os.remove(save_path)  # Delete the file
+        os.makedirs(save_path)  # Create a proper directory
+
+    # Save model and tokenizer
+    model.save_pretrained(save_path)
+    tokenizer.save_pretrained(save_path)
+    print(f"Model is being saved at: {save_path}")
