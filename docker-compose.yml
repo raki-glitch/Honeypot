@@ -1000,7 +1000,7 @@ services:
     networks:
       - tpot_bridge  
     ports:
-      - "127.0.0.1:2181:2181"
+      - "2181:2181"
     environment:
       - ZOOKEEPER_CLIENT_PORT=2181
 
