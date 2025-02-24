@@ -783,7 +783,7 @@ services:
         hard: 65536
     mem_limit: 20g
     ports:
-     - "0.0.0.0:64298:9200"
+     - "64298:9200"
     image: ${TPOT_REPO}/elasticsearch:${TPOT_VERSION}
     pull_policy: ${TPOT_PULL_POLICY}
     volumes:
