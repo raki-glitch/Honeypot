@@ -4,6 +4,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 import logging
+from huggingface_hub import login  # Added for Hugging Face authentication
 
 # Load LLaMA model
 model_name = "meta-llama/Llama-2-7b-chat-hf"
@@ -13,8 +14,16 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def load_model():
     try:
-        tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
+        # Check if Hugging Face authentication is required and log in
+        if not os.getenv("HUGGINGFACE_TOKEN"):
+            logging.error("Hugging Face token is missing, please set it in environment variables.")
+            exit(1)
+        
+        # Log in to Hugging Face if necessary
+        login(token=os.getenv("HUGGINGFACE_TOKEN"))
+
+        tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=True)
+        model = AutoModelForCausalLM.from_pretrained(model_name, use_auth_token=True).to(device)
         model.train()  # Set to training mode
         return tokenizer, model
     except Exception as e:
