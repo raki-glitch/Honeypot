@@ -837,6 +837,7 @@ services:
         condition: service_healthy
     networks:
      - nginx_local
+     - tpot_bridge
     environment:
      - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
      - TPOT_TYPE=${TPOT_TYPE:-HIVE}
