@@ -5,10 +5,10 @@ WORKDIR /app
 RUN pip install torch==2.6.0 transformers sentencepiece kafka-python pandas huggingface-hub
 
 # Set the Hugging Face token as an environment variable
-ENV HUGGINGFACE_TOKEN=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
+# ENV HUGGINGFACE_TOKEN=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
 
-# Log in to Hugging Face
-RUN huggingface-cli login --token $HUGGINGFACE_TOKEN
+# # Log in to Hugging Face
+# RUN huggingface-cli login --token $HUGGINGFACE_TOKEN
 
 # Copy the training script into the container
 COPY ./train_ai.py .
