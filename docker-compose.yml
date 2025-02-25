@@ -1016,8 +1016,7 @@ services:
     environment:
       KAFKA_BROKER: "kafka:9092"
       HUGGINGFACE_TOKEN: "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"
-    storage_opt:
-      size: "50GB"
+
   ai_api:
     build: ./docker/HONEYAISERVER
     container_name: ai_api
