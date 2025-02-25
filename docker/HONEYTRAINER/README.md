@@ -37,6 +37,18 @@ This project fine-tunes the LLaMA-2-7B model using real-time attack logs from Ka
 4. **Hard to Debug Kafka Connectivity**  
    - Now, logs explicitly show **when Kafka is connected or retrying**.
 
+## Deployment on Azure: Potential Issues & Solutions
+
+| **Issue** | **Problem** | **Solution** |
+|----------|------------|-------------|
+| **Insufficient GPU Resources** | Azure GPU VMs (NC, ND-series) may not be available on demand | Use **Azure Machine Learning (AML) with auto-scaling** to allocate GPUs dynamically |
+| **Kafka Connectivity Issues** | If using Azure Event Hubs (Kafka mode), network issues may cause timeouts | Use **private endpoints or Virtual Network (VNet) integration** for secure, low-latency access |
+| **Slow Model Loading Due to Storage Latency** | Loading from Azure Blob Storage may be slow | Cache the model locally using **Azure Files (NFS) or Ephemeral Disks** for faster access |
+| **Checkpoint Persistence in Stateless Containers** | If a container crashes, local checkpoints are lost | Store checkpoints in **Azure Blob Storage or Azure Files** for recovery |
+| **Timeouts in Kafka Consumer with Auto-Scaling** | Kafka consumers may scale dynamically, causing offset issues | Configure **Kafka consumer groups and enable offset retention** in Event Hubs |
+| **High Training Costs on Azure** | GPUs are expensive, and inefficient training increases costs | Use **spot instances with autoscaling** for cost efficiency |
+| **Networking & Firewall Restrictions** | Azure security settings may block outbound access | Ensure **Hugging Face and Kafka brokers are accessible** via network rules |
+
 ## Final Verdict
 🚀 **Now the system is fault-tolerant, efficient, and scalable for continuous AI training.**  
 If the container crashes or Kafka goes down, it will **recover automatically without manual intervention**.  
