@@ -1010,7 +1010,7 @@ services:
     networks:
       - nginx_local
     volumes:
-      - ./docker/HONEYTRAINER:/app
+      - ai_training_data:/app
     depends_on:
       - kafka
     environment:
@@ -1022,7 +1022,7 @@ services:
     build: ./docker/HONEYAISERVER
     container_name: ai_api
     volumes:
-      - ./docker/HONEYTRAINER/:/app/
+      - ai_training_data:/app
     ports:
       - "127.0.0.1:9000:8000"
     depends_on:
@@ -1031,3 +1031,5 @@ services:
 volumes:
   wp: {}
   db: {}
+  ai_training_data:
+    driver: local
