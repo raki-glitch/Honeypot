@@ -1,9 +1,9 @@
 # T-Pot - The All In One Multi Honeypot Platform
 # Adding a Live container training functionnality with the fine tuned LLama from Meta , check the readme docker/HONEYTRAINER/
 # Attack Data is outputed from elasticsearch and stock piled to kafka , the live container AI model connects and consumes data from Kafka in the most optimal and efficient way with up to 4 workers at the same time
-
-{ Still needs many refinements }
-
+<br><br>
+# { Still needs many refinements }
+<br><br>
 ![T-Pot](doc/tpotsocial.png)
 
 T-Pot is the all in one, optionally distributed, multiarch (amd64, arm64) honeypot plattform, supporting 20+ honeypots and countless visualization options using the Elastic Stack, animated live attack maps and lots of security tools to further improve the deception experience.
