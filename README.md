@@ -1,4 +1,8 @@
 # T-Pot - The All In One Multi Honeypot Platform
+# Adding a Live container training functionnality with the fine tuned LLama from Meta , check the readme docker/HONEYTRAINER/
+# Attack Data is outputed from elasticsearch and stock piled to kafka , the live container AI model connects and consumes data # # from Kafka in the most optimal and efficient way with up to 4 workers at the same time
+
+{ Still needs many refinements }
 
 ![T-Pot](doc/tpotsocial.png)
 
