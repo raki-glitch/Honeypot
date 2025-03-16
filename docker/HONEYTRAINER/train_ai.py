@@ -110,6 +110,7 @@ async def consume_kafka():
         for _, records in messages.items():
             for message in records:
                 log = json.loads(message.value.decode("utf-8"))
+                print("New data Recieved***\?/***",format_attack_log(log))
                 batch.append(format_attack_log(log))
 
         if batch:

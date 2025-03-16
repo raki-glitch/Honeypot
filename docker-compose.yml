@@ -805,27 +805,27 @@ services:
     pull_policy: ${TPOT_PULL_POLICY}
 
 
-  logstash_data_parser:
-    image: docker.elastic.co/logstash/logstash:7.17.0
-    container_name: logstash_data_parser
-    networks:
-     - nginx_local
-     - tpot_bridge
-    volumes:
-      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ${TPOT_DATA_PATH}/suricata/log:/tpot_logs
-    environment:
-     - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
-    #  - TPOT_TYPE=${TPOT_TYPE:-HIVE}
-    #  - TPOT_HIVE_USER=${TPOT_HIVE_USER}
-    #  - TPOT_HIVE_IP=${TPOT_HIVE_IP}
-     - LS_SSL_VERIFICATION=${LS_SSL_VERIFICATION:-full}
-    ports:
-      - "127.0.0.1:5044:5044"  # Logstash input
-      - "127.0.0.1:9600:9600"  # Logstash monitoring
-    depends_on:
-      - kafka
-      - tpotinit
+  # logstash_data_parser:
+  #   image: docker.elastic.co/logstash/logstash:7.17.0
+  #   container_name: logstash_data_parser
+  #   networks:
+  #    - nginx_local
+  #    - tpot_bridge
+  #   volumes:
+  #     - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+  #     - ${TPOT_DATA_PATH}/suricata/log:/tpot_logs
+  #   environment:
+  #    - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
+  #   #  - TPOT_TYPE=${TPOT_TYPE:-HIVE}
+  #   #  - TPOT_HIVE_USER=${TPOT_HIVE_USER}
+  #   #  - TPOT_HIVE_IP=${TPOT_HIVE_IP}
+  #    - LS_SSL_VERIFICATION=${LS_SSL_VERIFICATION:-full}
+  #   ports:
+  #     - "127.0.0.1:5044:5044"  # Logstash input
+  #     - "127.0.0.1:9600:9600"  # Logstash monitoring
+  #   depends_on:
+  #     - kafka
+  #     - tpotinit
 
 ## Logstash service
   logstash:
